@@ -37,51 +37,51 @@ Lv = []
 key = st.text_input('Enter API key:')
 openai.api_key = key
 groupby_column = st.selectbox('Choose an option?',('Enter a text of your choice','Upload an Excel(.xlsx) file'))
-
-if groupby_column == 'Enter a text of your choice':
-    text = st.text_input('Enter your text here')
-    conversation = [
-                {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(text)},
-                           ]
-    response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=conversation
-         )
-
-   # Extract and return the chatbot's reply
-    chatbot_reply = response["choices"][0]["message"]["content"]
-    st.write(chatbot_reply)
-else:
-    uploaded_file = st.file_uploader('Choose a XLSX file', type='xlsx')
-    if uploaded_file:
-        st.markdown('---')
-        df = pd.read_excel(uploaded_file, engine='openpyxl')
-        col = st.text_input('Enter the column name')
-        if col:
-             for i in df[col]:
-                try:
-                    conversation = [
-                {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(i)},
-                           ]
-
-        # Generate a response from GPT-3
-                    response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=conversation
+if key:
+    if groupby_column == 'Enter a text of your choice':
+        text = st.text_input('Enter your text here')
+        conversation = [
+                    {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(text)},
+                               ]
+        response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=conversation
              )
-
-        # Extract and return the chatbot's reply
-                    chatbot_reply = response["choices"][0]["message"]["content"]
-                    print(chatbot_reply)
-                    ini_string = json.dumps(chatbot_reply)
-                    final_dictionary = json.loads(ini_string)
-                    Lv.append(final_dictionary)
-                except:
-                    pass
-    final = pd.DataFrame()
-    final['JSONData'] = Lv
-    #df = pd.concat([final.drop(['JSONData'], axis=1), pd.json_normalize(final['JSONData'].apply(json.loads))], axis=1)
-    # -- DOWNLOAD SECTION
-    st.subheader('Downloads:')
-    generate_excel_download_link(final)
-    #generate_html_download_link(fig)
+    
+       # Extract and return the chatbot's reply
+        chatbot_reply = response["choices"][0]["message"]["content"]
+        st.write(chatbot_reply)
+    else:
+        uploaded_file = st.file_uploader('Choose a XLSX file', type='xlsx')
+        if uploaded_file:
+            st.markdown('---')
+            df = pd.read_excel(uploaded_file, engine='openpyxl')
+            col = st.text_input('Enter the column name')
+            if col:
+                 for i in df[col]:
+                    try:
+                        conversation = [
+                    {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(i)},
+                               ]
+    
+            # Generate a response from GPT-3
+                        response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=conversation
+                 )
+    
+            # Extract and return the chatbot's reply
+                        chatbot_reply = response["choices"][0]["message"]["content"]
+                        print(chatbot_reply)
+                        ini_string = json.dumps(chatbot_reply)
+                        final_dictionary = json.loads(ini_string)
+                        Lv.append(final_dictionary)
+                    except:
+                        pass
+        final = pd.DataFrame()
+        final['JSONData'] = Lv
+        #df = pd.concat([final.drop(['JSONData'], axis=1), pd.json_normalize(final['JSONData'].apply(json.loads))], axis=1)
+        # -- DOWNLOAD SECTION
+        st.subheader('Downloads:')
+        generate_excel_download_link(final)
+        #generate_html_download_link(fig)
