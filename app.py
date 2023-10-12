@@ -78,8 +78,8 @@ else:
                     pass
     final = pd.DataFrame()
     final['JSONData'] = Lv
-    df = pd.concat([final.drop(['JSONData'], axis=1), pd.json_normalize(final['JSONData'].apply(json.loads))], axis=1)
+    #df = pd.concat([final.drop(['JSONData'], axis=1), pd.json_normalize(final['JSONData'].apply(json.loads))], axis=1)
     # -- DOWNLOAD SECTION
     st.subheader('Downloads:')
-    generate_excel_download_link(df)
+    generate_excel_download_link(final)
     #generate_html_download_link(fig)
