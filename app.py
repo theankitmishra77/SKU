@@ -32,8 +32,10 @@ st.title('Product Analysis 📈')
 st.subheader('Feed me with your Excel file or Text')
 api_key = "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"
 
-openai.api_key = api_key
+
 Lv = []
+key = st.text_input('Enter API key:')
+openai.api_key = key
 groupby_column = st.selectbox('Choose an option?',('Enter a text of your choice','Upload an Excel(.xlsx) file'))
 
 if groupby_column == 'Enter a text of your choice':
