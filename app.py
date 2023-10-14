@@ -7,6 +7,7 @@ import openai
 import json
 import os
 import ast
+import time
 
 from dotenv import load_dotenv
 
@@ -45,7 +46,7 @@ groupby_column = st.selectbox('Choose an option?',('Enter a text of your choice'
 
 if groupby_column == 'Enter a text of your choice':
     text = st.text_input('Enter your text here')
-    submit = st.button("Reset", type="primary")
+    submit = st.button("Submit", type="primary")
     if submit:
         conversation = [
                 {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(text)},
@@ -64,7 +65,7 @@ else:
         st.markdown('---')
         df = pd.read_excel(uploaded_file, engine='openpyxl')
         col = st.text_input('Enter the column name')
-        submit = st.button("Reset", type="primary")
+        submit = st.button("Submit", type="primary")
         df2 = pd.DataFrame()
         final = pd.DataFrame()
         if submit:
@@ -101,6 +102,7 @@ else:
                             pass
                     except:
                         pass
+            time.sleep(1)
         final
         # -- DOWNLOAD SECTION
         st.subheader('Downloads:')
