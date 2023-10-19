@@ -69,9 +69,9 @@ else:
         submit = st.button("Submit", type="primary")
         df2 = pd.DataFrame()
         final = pd.DataFrame()
+        previous = []
         if submit:
             if col:
-                previous = []
                 for i in df[col]:
                     try:
                         conversation = [
