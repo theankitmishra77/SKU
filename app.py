@@ -37,7 +37,7 @@ def generate_html_download_link(fig):
 st.set_page_config(page_title='Product Analysis')
 st.title('Product Analysis 📈')
 st.subheader('Feed me with your Excel file or Text')
-api_key = "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"
+#api_key = "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"
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
