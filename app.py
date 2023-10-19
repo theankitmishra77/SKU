@@ -76,16 +76,12 @@ else:
                     print(i)
                     try:
                         conversation = [
-                {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(i)},
+                {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptops should have a domain  'Electronics'".format(i)},
                            ]
-
-        # Generate a response from GPT-3
                         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=conversation
              )
-
-        # Extract and return the chatbot's reply
                         chatbot_repl = response["choices"][0]["message"]["content"]
                         print(chatbot_repl)
                         chatbot_reply = chatbot_repl.replace("'",'"')
