@@ -95,7 +95,7 @@ else:
                         data = json.loads(final_dictionary)
                         #print('lo')
                         df2 = pd.DataFrame([data]);previous.append(i)
-                        #print(df2)
+                        print(df2)
                         try:
                             df2 = df2.rename(columns={"Company": "Company", "Product Domain": "Product"})
                             final = pd.concat([final,df2])
