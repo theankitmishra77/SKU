@@ -4,6 +4,7 @@ import plotly.express as px  # pip install plotly-express
 import base64  # Standard Python Module
 from io import StringIO, BytesIO  # Standard Python Module
 import openai
+import openpyxl
 import json
 import os
 import ast
@@ -70,6 +71,7 @@ else:
         final = pd.DataFrame()
         if submit:
             if col:
+                previous = []
                 for i in df[col]:
                     try:
                         conversation = [
@@ -92,17 +94,17 @@ else:
                         #print(type(final_dictionary))
                         data = json.loads(final_dictionary)
                         #print('lo')
-                        df2 = pd.DataFrame([data])
+                        df2 = pd.DataFrame([data]);previous.append(i)
                         #print(df2)
                         try:
                             df2 = df2.rename(columns={"Company": "Company", "Product Domain": "Product"})
                             final = pd.concat([final,df2])
-                            
                         except:
                             pass
                     except:
                         pass
             time.sleep(1)
+        final['Description'] = previous
         final
         # -- DOWNLOAD SECTION
         st.subheader('Downloads:')
