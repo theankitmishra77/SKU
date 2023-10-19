@@ -73,6 +73,7 @@ else:
         if submit:
             if col:
                 for i in df[col]:
+                    print(i)
                     try:
                         conversation = [
                 {"role": "user", "content": "Extract 'Company Name' of the product and the domain of the product like 'toy', 'Electronic' etc. from {} in   the form of Dictionary with keys - ['Company','Product Domain']. Remember that domain is very broad categorization example:-laptoms should have a domain  Electronics".format(i)},
