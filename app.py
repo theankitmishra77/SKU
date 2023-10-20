@@ -10,11 +10,6 @@ import os
 import ast
 import time
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 def generate_excel_download_link(df):
     # Credit Excel: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474/5
     towrite = BytesIO()
@@ -33,7 +28,6 @@ def generate_html_download_link(fig):
     href = f'<a href="data:text/html;charset=utf-8;base64, {b64}" download="plot.html">Download Plot</a>'
     return st.markdown(href, unsafe_allow_html=True)
 
-
 st.set_page_config(page_title='Product Analysis')
 st.title('Product Analysis 📈')
 st.subheader('Feed me with your Excel file or Text')
@@ -43,6 +37,9 @@ openai.api_key = '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'
 
 Lv = []
 Lv2 = []
+
+Api_keys = st.text_input('Enter your api key here')
+openai.api_key = Api_keys
 groupby_column = st.selectbox('Choose an option?',('Enter a text of your choice','Upload an Excel(.xlsx) file'))
 
 if groupby_column == 'Enter a text of your choice':
