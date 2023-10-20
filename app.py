@@ -39,7 +39,7 @@ st.title('Product Analysis 📈')
 st.subheader('Feed me with your Excel file or Text')
 #api_key = "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"
 
-openai.api_key = st.secrets["OPENAI_KEY"]
+openai.api_key = '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'
 
 Lv = []
 Lv2 = []
